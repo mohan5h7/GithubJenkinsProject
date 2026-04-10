@@ -13,28 +13,10 @@ pipeline {
             }
         }
 
-        stage('Build') {
+        stage('Build & Test') {
             steps {
-                bat 'mvn clean compile'
+                bat 'mvn clean test'
             }
-        }
-
-        stage('Test') {
-            steps {
-                bat 'mvn test'
-            }
-        }
-
-        stage('Package') {
-            steps {
-                bat 'mvn clean package'
-            }
-        }
-    }
-
-    post {
-        always {
-            archiveArtifacts artifacts: '**/target/*.jar', allowEmptyArchive: true
         }
     }
 }
