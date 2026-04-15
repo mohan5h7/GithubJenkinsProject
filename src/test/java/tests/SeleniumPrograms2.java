@@ -37,6 +37,8 @@ public class SeleniumPrograms2 {
         Reuse.createReport("Amazon_Report.html", "Amazon Test", "Amazon_Module");
 
         driver.get("https://www.amazon.com/");
+        
+        System.out.println("trigger test");
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
