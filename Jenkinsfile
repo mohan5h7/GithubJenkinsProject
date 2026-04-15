@@ -6,16 +6,21 @@ pipeline {
     }
 
     stages {
-
         stage('Checkout') {
             steps {
                 git 'https://github.com/mohan5h7/GithubJenkinsProject.git'
             }
         }
 
-        stage('Build') {
+        stage('Build & Test') {
             steps {
-                bat 'mvn clean install -DskipTests'
+                bat 'mvn clean test'
+            }
+        }
+
+        stage('Test Report') {
+            steps {
+                junit '**/target/surefire-reports/*.xml'
             }
         }
     }
