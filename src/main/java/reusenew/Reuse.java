@@ -58,7 +58,8 @@ public class Reuse {
         File srcFile = ts.getScreenshotAs(OutputType.FILE);
 
         String destPath = System.getProperty("user.dir") + "/pass/" + screenshotName + "_" + time + ".png";
-        FileUtils.copyFile(srcFile, new File(destPath));
+        File desfile = new File(destPath);
+        FileUtils.copyFile(srcFile, desfile);
 
         test.pass(data, MediaEntityBuilder.createScreenCaptureFromPath(destPath).build());
         report.flush();

@@ -7,6 +7,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -27,31 +29,44 @@ public class SeleniumPrograms2 {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        
     }
-
     @Test
-    public void openAmazon() throws InterruptedException, IOException {
+    public void openAmazon() throws IOException {
 
         Reuse.createReport("Amazon_Report.html", "Amazon Test", "Amazon_Module");
 
         driver.get("https://www.amazon.com/");
-        Thread.sleep(5000);
 
-        WebElement req = driver.findElement(By.xpath("(//*[text()='Prime Video'])[2]"));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-        try {
-            if (req.isDisplayed()) {
-                Reuse.captureScreenshotPass(driver, "Amazon", "Amazon opened successfully");
-            }
-        } catch (Exception e) {
+        WebElement req = wait.until(
+            ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(text(),'Prime')]"))
+        );
+
+        if (req.isDisplayed()) {
+            Reuse.captureScreenshotPass(driver, "Amazon", "Amazon opened successfully");
+        } else {
             Reuse.captureScreenshotFail(driver, "Amazon", "Amazon not opened");
             Assert.fail("Amazon not opened");
         }
-    }
+    }}
 
-    @AfterMethod
-    public void tearDown() {
-        driver.quit();
-        Reuse.closeReport();
-    }
-}
+/*
+ * @Test public void openAmazon() throws InterruptedException, IOException {
+ * 
+ * Reuse.createReport("Amazon_Report.html", "Amazon Test", "Amazon_Module");
+ * 
+ * driver.get("https://www.amazon.com/");
+ * 
+ * 
+ * WebElement req =
+ * driver.findElement(By.xpath("(//*[text()='Prime Video'])[2]"));
+ * 
+ * try { if (req.isDisplayed()) { Reuse.captureScreenshotPass(driver, "Amazon",
+ * "Amazon opened successfully"); } } catch (Exception e) {
+ * Reuse.captureScreenshotFail(driver, "Amazon", "Amazon not opened");
+ * Assert.fail("Amazon not opened"); } }
+ * 
+ * @AfterMethod public void tearDown() { driver.quit(); Reuse.closeReport(); } }
+ */
