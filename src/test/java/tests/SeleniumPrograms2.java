@@ -34,6 +34,8 @@ public class SeleniumPrograms2 {
     @Test
     public void openAmazon() throws IOException {
 
+        //Code Changes in git hub
+
         Reuse.createReport("Amazon_Report.html", "Amazon Test", "Amazon_Module");
 
         driver.get("https://www.amazon.com/");
