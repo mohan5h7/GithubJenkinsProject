@@ -35,6 +35,7 @@ public class SeleniumPrograms2 {
     public void openAmazon() throws IOException {
 
         //Code Changes in git hub
+    	//Code change in the local
 
         Reuse.createReport("Amazon_Report.html", "Amazon Test", "Amazon_Module");
 
